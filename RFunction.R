@@ -35,19 +35,11 @@ rFunction <- function(data) {
     }
   )
 
-  xx <- map(s1, ~ {
-    if (.$DOF == 0) {
-      list("speed (m/s)", c(NA, NA, NA))
-    } else {
-      ci <- signif(.$CI, 4)
-      list("speed (m/s)", c(ci[2], ci[1], ci[3]))
-    }
-  })
-
-  xx1 <- do.call(rbind, map(xx, 2))
-  colnames(xx1) <- c("est", "low", "high")
-  xx1 |> as_tibble() |>
-    mutate(id = names(xx), parameter = map_chr(xx, 1)) |>
+  xx <- map(s1, ~ .x$CI)
+  xx <- do.call(rbind, xx)
+  xx |> as_tibble() |>
+    mutate(id = names(s1), parameter = "speed (m/s)") |>
+    mutate(across(c(low, est, high), ~ if_else(no_estimate, NA_real_, .x))) |>
     select(id, parameter, low, est, high) |>
     write.csv(appArtifactPath("speed.csv"), row.names = FALSE)
 
