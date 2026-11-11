@@ -63,14 +63,14 @@ Continuous-Time Movement Model (ctmm)* App:
 `speed.csv`: the estimated average speed of each animal over its tracking
 period. It contains the following columns:
   - `id`: the name of the animal.
-  - `unit`: the unit of the speed (meters per second).
+  - `parameter`: the parameter name and its unit (speed in meters/second).
   - `low`, `est`, `high`: the estimated speed and the lower and upper bounds
     of its 95% confidence interval.
 
 `distance.csv`: the estimated total distance each animal moved over its
 tracking period. It contains the following columns:
   - `id`: the name of the animal.
-  - `unit`: the unit of the distance (meters).
+  - `parameter`: the parameter name and its unit (distance in meters).
   - `low`, `est`, `high`: the estimated distance and the lower and upper
     bounds of its 95% confidence interval.
 

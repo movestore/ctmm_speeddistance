@@ -47,8 +47,8 @@ rFunction <- function(data) {
   xx1 <- do.call(rbind, map(xx, 2))
   colnames(xx1) <- c("est", "low", "high")
   xx1 |> as_tibble() |>
-    mutate(id = names(xx), unit = map_chr(xx, 1)) |>
-    select(id, unit, low, est, high) |>
+    mutate(id = names(xx), parameter = map_chr(xx, 1)) |>
+    select(id, parameter, low, est, high) |>
     write.csv(appArtifactPath("speed.csv"), row.names = FALSE)
 
   duration <- map_dbl(data[[2]], ~ diff(range(.x$t)))
@@ -57,9 +57,9 @@ rFunction <- function(data) {
   xx <- do.call(rbind, xx)
   xx |> as_tibble() |>
     mutate(id = names(s1)) |>
-    mutate(low = low * duration, est = est * duration, high = high * duration, unit = "distance (m)") |>
+    mutate(low = low * duration, est = est * duration, high = high * duration, parameter = "distance (m)") |>
     mutate(across(c(low, est, high), ~ if_else(no_estimate, NA_real_, .x))) |>
-    select(id, unit, low, est, high) |>
+    select(id, parameter, low, est, high) |>
     write.csv(appArtifactPath("distance.csv"), row.names = FALSE)
 
   return(data)
