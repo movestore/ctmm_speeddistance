@@ -100,9 +100,11 @@ enough, which can take a minute or more per animal for long tracks.
 The speed is estimated separately for each animal with [`ctmm::speed()`][1],
 from the animal's model and its tracking data, with ctmm's default settings.
 The confidence interval reflects both the uncertainty in the model parameters
-and the variation between the simulated trajectories. The distance is the
-estimated speed and its confidence interval multiplied by the time between
-the animal's first and last location.
+and the variation between the simulated trajectories. Because the estimate is
+based on random simulations, running the App again on the same data can give
+slightly different values. The distance is the estimated speed and its
+confidence interval multiplied by the time between the animal's first and last
+location.
 
 The method is described in Noonan, M. J., Fleming, C. H., Akre, T. S.,
 Drescher-Lehman, J., Gurarie, E., Harrison, A.-L., Kays, R., & Calabrese,
