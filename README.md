@@ -25,7 +25,7 @@ non-linear movement between recorded locations) and for telemetry error.
 This produces estimates that don't depend on the sampling interval in the way
 that straight-line distance estimates do.
 
-This App is part of a ctmm workflow. You must run the *Fit a Continuous-Time
+This App is part of a ctmm Workflow. You must run the *Fit a Continuous-Time
 Movement Model (ctmm)* App before this one, as the App needs a fitted model
 for each animal.
 
