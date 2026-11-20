@@ -14,11 +14,33 @@ rFunction <- function(data) {
     }
   )
 
-  s1 <- map2(
-    data[[1]],
-    telemetry,
-    ~ speed(.x, .y, units = FALSE, trace = FALSE)
+  # Time since `since`, for the log, e.g. "3.4 secs" or "2.1 mins"
+  elapsed <- function(since) format(round(Sys.time() - since, 1))
+  start <- Sys.time()
+  n <- length(telemetry)
+
+  logger.info(paste0(
+    "Estimating speed and distance for ", n, " animal(s). This can take a ",
+    "while for many animals or long tracks."
+  ))
+
+  # Estimate the animals one after the other and log the progress of each
+  s1 <- map(
+    seq_len(n),
+    function(i) {
+      id <- names(data[[1]])[i]
+      
+      logger.info(paste0("Estimating speed for animal ", i, " of ", n, " (", id, ")"))
+      animal_start <- Sys.time()
+      
+      est <- speed(data[[1]][[i]], telemetry[[i]], units = FALSE, trace = FALSE)
+      
+      logger.info(paste0(id, ": done after ", elapsed(animal_start)))
+      est
+    }
   )
+  names(s1) <- names(data[[1]])
+  logger.info(paste0("All animals estimated after ", elapsed(start)))
 
   # ctmm returns DOF = 0 when it can't estimate speed, usually because the
   # model has no velocity component. Those animals get NA in both files.
