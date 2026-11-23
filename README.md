@@ -25,7 +25,7 @@ non-linear movement between recorded locations) and for telemetry error.
 This produces estimates that don't depend on the sampling interval in the way
 that straight-line distance estimates do.
 
-This App is part of a ctmm workflow. You must run the *Fit a Continuous-Time
+This App is part of a ctmm Workflow. You must run the *Fit a Continuous-Time
 Movement Model (ctmm)* App before this one, as the App needs a fitted model
 for each animal.
 
@@ -53,8 +53,8 @@ handling* below).
 `ctmm model with data`: a list with two elements, as produced by the *Fit a
 Continuous-Time Movement Model (ctmm)* App:
 
-1. A list containing the selected `ctmm` model for each animal.
-2. The tracking data (an object of type `telemetry.list`).
+1. `model`: a list containing the selected `ctmm` model for each animal.
+2. `data`: the tracking data (an object of type `telemetry.list`).
 
 ### Output type
 `ctmm model with data`: the input, unchanged.
@@ -100,9 +100,11 @@ enough, which can take a minute or more per animal for long tracks.
 The speed is estimated separately for each animal with [`ctmm::speed()`][1],
 from the animal's model and its tracking data, with ctmm's default settings.
 The confidence interval reflects both the uncertainty in the model parameters
-and the variation between the simulated trajectories. The distance is the
-estimated speed and its confidence interval multiplied by the time between
-the animal's first and last location.
+and the variation between the simulated trajectories. Because the estimate is
+based on random simulations, running the App again on the same data can give
+slightly different values. The distance is the estimated speed and its
+confidence interval multiplied by the time between the animal's first and last
+location.
 
 The method is described in Noonan, M. J., Fleming, C. H., Akre, T. S.,
 Drescher-Lehman, J., Gurarie, E., Harrison, A.-L., Kays, R., & Calabrese,
